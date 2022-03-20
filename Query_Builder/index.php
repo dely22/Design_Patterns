@@ -117,7 +117,7 @@ class DB
         $this->initializStm();
 
         $sql = "SELECT " . $this->columns .
-            " FROM " . $this->table_name
+            "FROM" . $this->table_name
             . $this->join
             . $this->leftJoin
             . $this->rightJoin
@@ -176,55 +176,55 @@ class DB
     {
         $this->table_name = $this->table_name === null ? ''  : $this->table_name;
 
-        $this->columns    = $this->columns    === [] ? '*' : implode(', ', $this->columns);
-        $this->values     = $this->values     === [] ? ''  : implode(', ', $this->values);
+        $this->columns = $this->columns  === [] ? '*' : implode(', ', $this->columns);
+        $this->values = $this->values  === [] ? ''  : implode(', ', $this->values);
 
-        $this->join      = $this->join      === null ? '' : $this->join;
+        $this->join = $this->join === null ? '' : $this->join;
         $this->rightJoin = $this->rightJoin === null ? '' : $this->rightJoin;
         $this->leftJoin  = $this->leftJoin  === null ? '' : $this->leftJoin;
 
         $this->condition = $this->condition === null ? ''  : " WHERE $this->condition ";
-        $this->orderBy   = $this->orderBy   === null ? ''  : " ORDER BY $this->orderBy ";
-        $this->limit     = $this->limit     === null ? ''  : " LIMIT $this->limit ";
-        $this->groupBy   = $this->groupBy   === null ? ''  : " GROUP BY $this->groupBy ";
+        $this->orderBy = $this->orderBy === null ? ''  : " ORDER BY $this->orderBy ";
+        $this->limit = $this->limit === null ? ''  : " LIMIT $this->limit ";
+        $this->groupBy = $this->groupBy === null ? ''  : " GROUP BY $this->groupBy ";
 
-        $this->duplicate   = $this->duplicate   === true ? '' : 'DISTINCT';
+        $this->duplicate = $this->duplicate === true ? '' : 'DISTINCT';
         $this->columnCount = $this->columnCount === null ? " id " : "$this->duplicate  $this->columnCount";
     }
 
     private function resetInput()
     {
         $this->table_name = null;
-        $this->columns    = [];
-        $this->values     = [];
+        $this->columns = [];
+        $this->values = [];
 
-        $this->join      = null;
+        $this->join = null;
         $this->rightJoin = null;
         $this->leftJoin  = null;
 
-        $this->condition   = null;
-        $this->order       = null;
+        $this->condition = null;
+        $this->order = null;
         $this->orderColumn = null;
-        $this->limit       = null;
+        $this->limit = null;
 
         $this->columnCount = null;
-        $this->duplicate   = null;
+        $this->duplicate = null;
 
         $this->result = [];
     }
 }
 
-$DB = new DB();
+$DB3 = new DB();
 
 // Example JOIN
-$DB->table('students')
+$DB3->table('students')
     ->select('students.id', 'students.studentname', 'cities.name')
     ->join('cities', 'students.city_id', 'cities.id')
     ->get();
 
 echo "<hr>";
 echo "Example JOIN";
-print_r($DB->result);
+print_r($DB3->result);
 echo "<hr>";
 
 // Example LEFT JOIN
@@ -236,7 +236,7 @@ $DB1->table('students')
     ->get();
 
 echo "<hr>";
-echo "Example JOIN";
+echo "Example LEFT JOIN ";
 print_r($DB1->result);
 echo "<hr>";
 
@@ -249,6 +249,20 @@ $DB2->table('students')
     ->get();
 
 echo "<hr>";
-echo "Example JOIN";
+echo "Example RIGHT JOIN";
 print_r($DB2->result);
 echo "<hr>";
+
+// Example JOIN
+//  join(string $table_name, $FK, $PK)
+
+// $DB4 = new DB();
+// $DB4->table('students')
+//     ->select('students.id', 'students.city_id', 'students.id')
+//     ->join('cities', 'students.city_id', 'cities.id')
+//     ->get();
+
+// echo "<hr>";
+// echo "Example JOIN";
+// print_r($DB4->result);
+// echo "<hr>";
